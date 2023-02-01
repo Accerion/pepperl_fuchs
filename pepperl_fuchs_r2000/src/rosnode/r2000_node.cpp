@@ -43,6 +43,7 @@ R2000Node::R2000Node():nh_("~")
     nh_.param("scanner_ip",scanner_ip_,std::string(""));
     nh_.param("scan_frequency",scan_frequency_,35);
     nh_.param("samples_per_scan",samples_per_scan_,3600);
+    nh_.param("latency_offset",latency_offset_,0.0);
 
     if( scanner_ip_ == "" )
     {
@@ -120,7 +121,7 @@ void R2000Node::getScanData(const ros::TimerEvent &e)
 
     sensor_msgs::LaserScan scanmsg;
     scanmsg.header.frame_id = frame_id_;
-    scanmsg.header.stamp = ros::Time::now();
+    scanmsg.header.stamp = ros::Time::now() + ros::Duration(latency_offset_);
 
     scanmsg.angle_min = -M_PI;
     scanmsg.angle_max = +M_PI;

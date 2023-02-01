@@ -81,6 +81,9 @@ private:
 
     //! Pointer to driver
     R2000Driver* driver_;
+
+    //! latency offset on the timestamp
+    double latency_offset_;
 };
 }
 
